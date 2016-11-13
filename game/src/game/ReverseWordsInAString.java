@@ -15,7 +15,7 @@ public class ReverseWordsInAString {
         StringBuilder sb = new StringBuilder();
         String[] word = s.split(" ");
         for(int i = word.length-1; i >= 0;i--){
-            if(!word[i].equals("")) sb.append(word[i] + " ");
+            sb.append(word[i] + " ");
         
         }
         return sb.toString().trim();
