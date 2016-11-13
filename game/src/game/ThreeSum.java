@@ -44,9 +44,9 @@ public class ThreeSum {
                             for(int m = 0; m < result.size(); m++){
                                 if(list.equals(result.get(m))){
                                     isSame = true;
-                                    list.remove(nums[i]);
-                                    list.remove(nums[j]);
-                                    list.remove(nums[index]);
+                                    list.remove(list.size()-3);
+                                    list.remove(list.size()-2);
+                                    list.remove(list.size()-1);
                                 }
                             }
                             if (result.isEmpty() || !isSame) {
@@ -65,7 +65,7 @@ public class ThreeSum {
 
     public static void main(String[] args) {
         ThreeSum sol = new ThreeSum();
-        int[] num = {2, 4,4, 2,2,2,1, 11, 15};
+        int[] num = {2, 4,4, 2,2,2,1,4, 11,4, 15};
         int target = 9;
         int target2 = 8;
         List<List<Integer>> result3Sum = sol.threeSum(num, target2);
