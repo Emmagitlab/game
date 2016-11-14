@@ -5,6 +5,8 @@
  */
 package game;
 
+import java.util.*;
+
 /**
  *
  * @author T440
@@ -14,14 +16,40 @@ class Node{
     Node left, right;
     public Node(int item){
         data = item;
-        left = right = null;   
+      
     
     }
 }
+class ResultType{
+    boolean is_bst;
+    int maxValue;
+    int minValue;
+    ResultType(boolean is_bst, int max, int min){
+        this.is_bst = is_bst;
+        this.maxValue = max;
+        this.minValue = min;
+    
+    }
+
+}
+
+class BNode{
+    Node n;
+    int left;
+    int right;
+    public BNode(Node node, int left, int right){
+        this.n = node;
+        this.left = left;
+        this.right = right;
+    }
+    
+
+}
+
 
 public class IsBST {
     Node root;
-    
+    // Recursive
     public boolean isBST(){
         return helper(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
     }
@@ -33,6 +61,58 @@ public class IsBST {
       return helper(node.left, min, node.data-1) && helper(node.right,node.data+1,max);
     
     }
+    
+    // Iterative
+    public boolean isValidBST(){
+        if(root == null){
+            return true;
+        
+        }
+        LinkedList<BNode> queue = new LinkedList<BNode>();
+        queue.add(new BNode(root, Integer.MIN_VALUE, Integer.MAX_VALUE) );
+        while(!queue.isEmpty()){
+            BNode temp = queue.poll();
+            if(temp.n.data <= temp.left || temp.n.data >= temp.right) return false;
+            if(temp.n.right != null){
+                queue.add(new BNode(temp.n.right,temp.n.data,temp.right));
+            }
+            if(temp.n.left != null){
+                queue.add(new BNode(temp.n.left,temp.left,temp.n.data));
+            }
+            
+        
+        }
+    
+        return true;
+    
+    }
+    
+    
+    
+    // Divide and Conquer
+    
+    public boolean isbst(){
+       return divideAndConquer(root).is_bst;
+  
+    }
+    
+    public ResultType divideAndConquer (Node root){
+        if(root == null){
+            return new ResultType(true, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        }
+        ResultType left = divideAndConquer(root.left);
+        ResultType right = divideAndConquer(root.right);
+        
+        if(!left.is_bst || !right.is_bst) return new ResultType(false,0,0);
+        if(root.left != null && left.maxValue >= root.data||root.right != null && right.minValue <= root.data) 
+            return new ResultType(false, 0 ,0);
+        return new ResultType(true,Math.max(root.data,right.maxValue),Math.min(root.data, left.minValue));
+        
+    } 
+    
+    
+    
+    
     public static void main(String args[])
     {
         IsBST tree = new IsBST();
@@ -46,6 +126,17 @@ public class IsBST {
             System.out.println("IS BST");
         else
             System.out.println("Not a BST");
+        
+        if(tree.isbst())
+           System.out.println("IS BST");
+        else
+            System.out.println("Not a BST"); 
+        
+        
+        if(tree.isValidBST())
+           System.out.println("IS BST");
+        else
+            System.out.println("Not a BST"); 
     }
     
 }
