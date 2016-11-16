@@ -71,6 +71,7 @@ public class ThreeSum {
         List<List<Integer>> result3Sum = sol.threeSum(num, target2);
         for (int i = 0; i < result3Sum.size(); i++) {
             System.out.println(result3Sum.get(i).toString());
+            
         }
 
     }

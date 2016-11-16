@@ -13,24 +13,24 @@ import java.util.PriorityQueue;
  * @author myang2
  */
 
-class ListNode{
+class LNode{
     int val;
-    ListNode next;
-    ListNode(int x){val = x;}
+    LNode next;
+    LNode(int x){val = x;}
 }
 public class MergeKSortedList {
-    public ListNode mergeKLists(ListNode[] lists){
+    public LNode mergeKLists(LNode[] lists){
         if(lists.length ==0) return null;
-        ListNode dummy = new ListNode(0);
-        PriorityQueue<ListNode> q = new PriorityQueue<ListNode>(lists.length,new Comparator<ListNode>(){
-            public int compare(ListNode n1, ListNode n2){
+        LNode dummy = new LNode(0);
+        PriorityQueue<LNode> q = new PriorityQueue<LNode>(lists.length,new Comparator<LNode>(){
+            public int compare(LNode n1, LNode n2){
                 return n1.val-n2.val;
                 
             }
                     });
         for( int i = 0; i < lists.length;i++)
             if(lists[i] != null) q.offer(lists[i]);
-        ListNode curr = dummy;
+        LNode curr = dummy;
         while(!q.isEmpty()){
             curr.next = q.poll();
             curr = curr.next;
@@ -39,5 +39,25 @@ public class MergeKSortedList {
             }
         }
         return dummy.next;
+    }
+    
+    public static void main(String[] args){
+        MergeKSortedList sol = new MergeKSortedList();
+        LNode[] list = new LNode[3];
+        list[0] = new LNode(1);
+        list[0].next = new LNode(3);
+        list[0].next.next = new LNode(5);
+        list[1] = new LNode(2);
+        list[2] = new LNode(4);
+        list[1].next = new LNode(6);
+        LNode head = sol.mergeKLists(list);
+        LNode temp = head;
+        while(temp != null){
+            System.out.println(temp.val);
+            temp = temp.next;
+        }
+        
+        
+    
     }
 }
