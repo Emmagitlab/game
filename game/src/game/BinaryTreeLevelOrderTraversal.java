@@ -41,6 +41,21 @@ public class BinaryTreeLevelOrderTraversal {
         return result;
     }
     
+    public List<Double> getAverage(List<List<Integer>> result){
+        List<Double> res= new ArrayList<Double>();
+        double sum = 0;
+        double average = 0;
+        for(int i = 0; i < result.size();i++){
+            for(int j = 0; j < result.get(i).size(); j++){
+                sum += result.get(i).get(j);
+            }
+            
+            res.add((Double)sum/result.get(i).size());
+            sum = 0;
+        }
+        return res;
+    }
+    
         public static void main(String[]  args){
         BinaryTreeLevelOrderTraversal sol = new BinaryTreeLevelOrderTraversal();
       
@@ -56,6 +71,13 @@ public class BinaryTreeLevelOrderTraversal {
         for(int i = 0; i < result.size(); i++){
           System.out.println(result.get(i).toString());
         }
+        
+        List<Double> res = sol.getAverage(result);
+        for(int j = 0; j < res.size(); j++){
+            System.out.println(res.get(j)+"");
+        
         }
+        }
+        
     
 }
