@@ -28,18 +28,49 @@ public class MergeKSortedList {
                 
             }
                     });
+        // 初始化大小为k的堆
         for( int i = 0; i < lists.length;i++)
             if(lists[i] != null) q.offer(lists[i]);
         LNode curr = dummy;
         while(!q.isEmpty()){
+            // 拿出堆顶元素
             curr.next = q.poll();
             curr = curr.next;
+            // 将堆顶元素的下一个加入堆中
             if(curr.next != null){
                 q.offer(curr.next);
             }
         }
         return dummy.next;
     }
+    
+    // faster
+    
+    public LNode mergeKLists2(LNode[] lists){
+        return ml(lists,0,lists.length-1);
+    }
+    public LNode ml(LNode[] lists, int l, int r){
+        if(r<l) return null;
+        if(r == l) return lists[r];
+        int mid = (r+l)/2;
+        LNode a = ml(lists,l,mid);
+        LNode b = ml(lists,r,mid);
+        LNode dummy = new LNode(0);
+        LNode curr = dummy;
+        while(a != null && b!= null){
+            if(a.val < b.val){
+                curr.next = a;
+                a = a.next;
+            }else{
+                curr.next = b;
+                b = b.next;
+            }
+            curr = curr.next;
+        }
+        curr.next = (a != null)? a:b;
+        return dummy.next;
+    }
+    
     
     public static void main(String[] args){
         MergeKSortedList sol = new MergeKSortedList();
