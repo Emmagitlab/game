@@ -67,7 +67,7 @@ public class SparseVectorDotProduct {
         }
         int len = A.length < B.length? A.length:B.length;
         for(int i = 0; i < len; i++){
-            if(mapA.get(i)!= null && mapB.get(i)!= null){
+            if(mapA.containsKey(i)&& mapB.containsKey(i)){
                 result += mapA.get(i)*mapB.get(i);}
         }
         return result;

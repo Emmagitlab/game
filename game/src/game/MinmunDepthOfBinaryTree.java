@@ -5,6 +5,11 @@
  */
 package game;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 /**
  *
  * @author T440
@@ -25,11 +30,30 @@ public class MinmunDepthOfBinaryTree {
         return Math.min(minDepth(root.right),minDepth(root.left))+1;
     }
     //bfs
-          public int maxDepth(TreeNode root) {
-        
-        if (root == null) return 0;
-        
-        return 1+Math.max(maxDepth(root.left), maxDepth(root.right));
+        public int minDepthBFS(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        int dep = 1;
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = queue.poll();
+                if (curr.left == null && curr.right == null) {
+                    return dep;
+                }
+                if (curr.left != null) {
+                    queue.offer(curr.left);
+                }
+                if (curr.right != null) {
+                    queue.offer(curr.right);
+                }
+            }
+            dep++;
+        }
+        return dep;
     }
 }
 

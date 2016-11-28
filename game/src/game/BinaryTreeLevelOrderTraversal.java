@@ -15,7 +15,9 @@ class TreeNode{
     int value;
     TreeNode left;
     TreeNode right;
+    int val;
     TreeNode(int x){ value = x;}
+   // TreeNode(int y){ val = y;}
 
 }
 public class BinaryTreeLevelOrderTraversal {
