@@ -33,30 +33,31 @@ public class SubSetsII {
 
     public ArrayList<ArrayList<Integer>> subsets(int[] num) {
         ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        if (num == null || num.length == 0) {
+        if(num == null || num.length == 0){
             return result;
         }
-        Arrays.sort(num);
-        subsetsHelper(result, list, num, 0);
-
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        
+        dfs(list,result,0,num);
         return result;
+    
+    
     }
-
-    private void subsetsHelper(ArrayList<ArrayList<Integer>> result,
-            ArrayList<Integer> list, int[] num, int pos) {
-
+    public void dfs(ArrayList<Integer> list, ArrayList<ArrayList<Integer>> result, int pos, int[] num){
         result.add(new ArrayList<Integer>(list));
-
-        for (int i = pos; i < num.length; i++) {
-            if (i != pos && num[i] == num[i - 1]) {
+        for(int i = pos; i < num.length;i++){
+            if(i!= pos && num[i] == num[i-1]){
                 continue;
             }
             list.add(num[i]);
-            subsetsHelper(result, list, num, i + 1);
-            list.remove(list.size() - 1);
+            dfs(list,result,i+1,num);
+            list.remove(list.size()-1);
+            
+        
         }
-    }
+
+
+}
 
     // iterative
     public List<List<Integer>> subsetsWithDup(int[] nums) {
