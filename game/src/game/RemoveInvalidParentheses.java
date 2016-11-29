@@ -56,7 +56,14 @@ public void dfs(String s, int i, Set<String> res, StringBuilder sb, int rmL, int
         dfs(s, i + 1, res, sb.append(c), rmL, rmR, open);	
     }
 
-    sb.setLength(len);        
+    sb.setLength(len);       
 }
-    
+
+public static void main(String[] args){
+    RemoveInvalidParentheses sol = new RemoveInvalidParentheses();
+    String s = "()())()";
+    sol.removeInvalidParentheses(s);
+
+}
+   
 }
