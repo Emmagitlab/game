@@ -227,9 +227,9 @@ public class Calendar1 {
    
 
     List<ConflictedTimeWindow> conflictedTimeWindows = calendar.findConflictedTimeWindow();
-    for(int i = 0; i < conflictedTimeWindows.size();i++){
-        System.out.println(conflictedTimeWindows.get(i));
-    }
+   
+        System.out.println(conflictedTimeWindows);
+    
     // should print something like
     // [ConflictedTimeWindow{startDate=Thu Jan 02 09:30:00 PST 2014, endDate=Thu Jan 02 10:00:00 PST 2014, conflictedEventIds=[5, 6]},
     //  ConflictedTimeWindow{startDate=Thu Jan 02 10:00:00 PST 2014, endDate=Thu Jan 02 11:00:00 PST 2014, conflictedEventIds=[4, 5, 6]},
