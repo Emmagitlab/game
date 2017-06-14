@@ -385,7 +385,7 @@ public class Database {
         // id, department_id, name
         // 1, 0, John
         System.out.println(db.getTable("users").where("id", 1).select(new String[] {"id", "department_id", "name"}));
-        System.out.println(db.getTable("users").select(new String[] {"department_id", "name"}));
+       // System.out.println(db.getTable("users").select(new String[] {"department_id", "name"}));
         
         // should print
         // users.name, departments.name

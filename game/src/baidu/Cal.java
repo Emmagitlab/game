@@ -16,10 +16,9 @@ import java.util.Stack;
  */
 public class Cal{
     
-    public long calculate(String s) {
+    public double calculate(String s) {
         int start = -1;
         int end = s.length()-1;
-        int pre = -1;
         List<Integer> starts = new ArrayList<>();
         List<Integer> ends = new ArrayList<>();
         for(int i = 0; i < s.length(); i++){
@@ -42,10 +41,10 @@ public class Cal{
             }
             end = ends.get(i) -count;
             String result = s.substring(start+1, end);
-            System.out.println("result:"+ result);
-            long replace = recursive(result);
-            System.out.println("replace:" + replace );
-            System.out.println("S O: "+s + " "+ s.length());
+            //System.out.println("result:"+ result);
+            double replace = recursive(result);
+            //System.out.println("replace:" + replace );
+            //System.out.println("S O: "+s + " "+ s.length());
             if(start == 0 && end+1 < s.length()){
                 s = replace+ s.substring(end+1);
             } else if(start == 0 && end+1 >= s.length()){
@@ -55,21 +54,21 @@ public class Cal{
             } else{
                 s = s.substring(0,start)+replace;
             }
-            System.out.println("S C: "+s + " "+ s.length());
+            //System.out.println("S C: "+s + " "+ s.length());
             count = end - start;
-            System.out.println("Count ：" + count);
+            //System.out.println("Count ：" + count);
         }
         
         return recursive(s) ;
     }
    
     
-    public long recursive(String s){
+    public double recursive(String s){
         if(s == null && s.length() == 0) return 0;
-        Stack<Long> stack = new Stack<Long>();
+        Stack<Double> stack = new Stack<Double>();
         char sign = '+';
-        int result = 0;
-        long num = 0;
+        double result = 0;
+        double num = 0;
       
         for(int i = 0; i < s.length(); i++){
             char c = s.charAt(i);
@@ -91,14 +90,14 @@ public class Cal{
                 num = 0;
             }
         }
-        for(long i: stack){
+        for(double i: stack){
             result += i;
         }
         return result;
     }
-    HashMap<String, Long> map = new HashMap<>();
-    public List<Long> CalcWithVars(String[] input){
-        List<Long> res = new ArrayList<>();
+    HashMap<String, Double> map = new HashMap<>();
+    public List<Double> CalcWithVars(String[] input){
+        List<Double> res = new ArrayList<>();
         List<String> keys = new ArrayList<>();
         for(int i = 0; i< input.length;i++){
             String[] items = input[i].replaceAll("\\s","").split("=");
@@ -110,7 +109,7 @@ public class Cal{
                 j++;
             }
             if(j == formula.length){
-                long result = calculate(items[1]);
+                double result = calculate(items[1]);
                 map.put(key, result);
             } else{
                 StringBuilder sb  = new StringBuilder();
@@ -122,7 +121,7 @@ public class Cal{
                 int end = j;
                 String v = sb.toString();
                 String cal = null;
-                long replace = map.get(v);
+                double replace = map.get(v);
                 if(start == 0 && end+1 < items[1].length()){
                     cal = replace+ items[1].substring(end+1);
                 } else if(start == 0 && end+1 >= items[1].length()){
@@ -132,14 +131,14 @@ public class Cal{
                 } else{
                     cal = items[1].substring(0,start)+replace;
                 }
-                long result = calculate(cal);
+                double result = calculate(cal);
                 map.put(items[0],result);
             }
             
         }
         for(String ele : keys){
             res.add(map.get(ele));
-            System.out.print(map.get(ele) + " ");
+            //System.out.print(map.get(ele) + " ");
         }
         return res;
     }
@@ -160,16 +159,16 @@ public class Cal{
 
     public static void main(String[] args){
         Cal cal = new Cal();
-        String s = "3+2*2";
-        String s2 = "(3+4) * 5/7";
+        String s = "3+4*5";
         System.out.println(cal.calculate(s));
+        String s2 = "3+4*5/7";
         System.out.println(cal.calculate(s2));
-        String s3 = "1+2*(3+4)";
+        String s3 = "(3+4) *5/7";
         cal.calculate(s3);
         System.out.println(cal.calculate(s3));
-        System.out.println(cal.calculate("1+(1+(3+4)*2)+1"));
+        //System.out.println(cal.calculate("1+(1+(3+4)*2)+1"));
         String[] input = { "pi = 3", "pizza = 9 * 9 * pi" };
-        cal.CalcWithVars(input);
+        System.out.println(cal.CalcWithVars(input));
     }
     
 }
